@@ -1,4 +1,71 @@
-﻿using System;
+﻿//this was previously the test for the TestProduct, used this for the CustomerProductTests and the orignal code is below in comments. 
+using System;
+using CustomerProductClasses;
+
+namespace CustomerProductTests
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            TestCustomerConstructors();
+            TestCustomerToString();
+            TestCustomerPropertyGetters();
+            TestCustomerPropertySetters();
+
+            Console.WriteLine("Tests complete");
+            Console.ReadKey();
+        }
+
+        static void TestCustomerConstructors()
+        {
+            Customer c1 = new Customer();
+            Customer c2 = new Customer(1, "Travis", "Burns", "travisjb0@gmail.com", "987-432-9531");
+
+            Console.WriteLine("Testing both constructors");
+            Console.WriteLine("Default constructor.  Expecting default values. " + c1.ToString());
+            Console.WriteLine("Overloaded constructor.  Expecting 1, Travis, Burns, travisjb0@gmail.com, 987-432-9531 " + c2.ToString());
+            Console.WriteLine();
+        }
+
+        static void TestCustomerToString()
+        {
+            Customer c1 = new Customer(1, "Travis", "Burns", "travisjb0@gmail.com", "987-432-9531");
+
+            Console.WriteLine("Testing ToString");
+            Console.WriteLine("Expecting Id: 1, Name: Travis Burns, Email: travisjb0@gmail.com, Phone: 987-432-9531 " + c1.ToString());
+            Console.WriteLine();
+        }
+
+        static void TestCustomerPropertyGetters()
+        {
+            Customer c1 = new Customer(1, "Travis", "Burns", "travisjb0@gmail.com", "987-432-9531");
+
+            Console.WriteLine("Testing getters");
+            Console.WriteLine("Id.  Expecting 1. " + c1.Id);
+            Console.WriteLine("FirstName.  Expecting Travis. " + c1.FirstName);
+            Console.WriteLine("LastName.  Expecting Burns. " + c1.LastName);
+            Console.WriteLine("Email.  Expecting travisjb0@gmail.com " + c1.Email);
+            Console.WriteLine("PhoneNumber.  Expecting 987-432-9531. " + c1.PhoneNumber);
+            Console.WriteLine();
+        }
+
+        static void TestCustomerPropertySetters()
+        {
+            Customer c1 = new Customer(1, "Travis", "Burns", "travisjb0@gmail.com", "987-432-9531");
+
+            Console.WriteLine("Testing setters");
+            c1.FirstName = "Tom";
+            Console.WriteLine("Expecting Tom. " + c1.FirstName);
+            Console.WriteLine();
+        }
+    }
+}
+
+
+
+
+/* using System;
 using CustomerProductClasses;
 
 namespace CustomerProductTests
@@ -63,3 +130,5 @@ namespace CustomerProductTests
         }
     }
 }
+
+*/
