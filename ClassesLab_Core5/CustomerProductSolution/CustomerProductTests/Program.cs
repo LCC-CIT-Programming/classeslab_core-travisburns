@@ -1,4 +1,4 @@
-﻿//this was previously the test for the TestProduct, used this for the CustomerProductTests and the orignal code is below in comments. 
+﻿
 using System;
 using System.Collections.Generic;
 using CustomerProductClasses;
