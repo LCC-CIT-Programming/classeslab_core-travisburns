@@ -9,15 +9,84 @@ namespace DominoTests
         static void Main(string[] args)
         {
 
-            TestDominoConstructors();
-            TestDominoToString();
-            TestDominoPropertyGetters();
-            TestDominoPropertySetters();
-            TestDominoFlip();
-            TestDominoScore();
-            TestDominoIsDouble();
-            TestDominoPropertySettersWithExceptions();
+            //TestDominoConstructors();
+            //TestDominoToString();
+            //TestDominoPropertyGetters();
+            // TestDominoPropertySetters();
+            // TestDominoFlip();
+            // TestDominoScore();
+            // TestDominoIsDouble();
+            // TestDominoPropertySettersWithExceptions();
+
+            //Testing for the boneyard class below
+
+            TestBoneYardConstructor();
+            TestBoneYardIsEmpty();
+            TestBoneYardDraw();
+            TestBoneYardShuffle();
+            TestBoneYardIndexer();
+            TestBoneYardToString();
         }
+
+
+        static void TestBoneYardConstructor()
+        {
+            BoneYard boneYard = new BoneYard(6);
+            Console.WriteLine("Testing BoneYard constructor");
+            Console.WriteLine("Dominos remaining. Expecting 28. " + boneYard.DominosRemaining);
+            Console.WriteLine();
+        }
+
+        static void TestBoneYardIsEmpty()
+        {
+            BoneYard boneYard = new BoneYard(6);
+            Console.WriteLine("Testing IsEmpty");
+            Console.WriteLine("Expecting false. " + boneYard.IsEmpty);
+            Console.WriteLine();
+        }
+
+        static void TestBoneYardDraw()
+        {
+            BoneYard boneYard = new BoneYard(6);
+            Console.WriteLine("Testing Draw");
+            Console.WriteLine("Dominos remaining before draw. Expecting 28. " + boneYard.DominosRemaining);
+            Domino d = boneYard.Draw();
+            Console.WriteLine("Drawn domino. Expecting 0, 0. " + d);
+            Console.WriteLine("Dominos remaining after draw. Expecting 27. " + boneYard.DominosRemaining);
+            Console.WriteLine();
+        }
+
+        static void TestBoneYardShuffle()
+        {
+            BoneYard boneYard = new BoneYard(6);
+            Console.WriteLine("Testing Shuffle");
+            Console.WriteLine("Before shuffle: \n" + boneYard);
+            boneYard.Shuffle();
+            Console.WriteLine("After shuffle: \n" + boneYard);
+            Console.WriteLine();
+        }
+
+        static void TestBoneYardIndexer()
+        {
+            BoneYard boneYard = new BoneYard(6);
+            Console.WriteLine("Testing indexer");
+            Console.WriteLine("Domino at index 0. Expecting 0, 0. " + boneYard[0]);
+            boneYard[0] = new Domino(4, 4);
+            Console.WriteLine("After setting domino at index 0 to 4, 4. Expecting 4, 4. " + boneYard[0]);
+            Console.WriteLine();
+        }
+
+        static void TestBoneYardToString()
+        {
+            BoneYard boneYard = new BoneYard(6);
+            Console.WriteLine("Testing ToString");
+            Console.WriteLine("Expecting a string of all dominos in the boneyard: \n" + boneYard);
+            Console.WriteLine();
+        }
+
+
+
+
 
         static void TestDominoConstructors()
         {

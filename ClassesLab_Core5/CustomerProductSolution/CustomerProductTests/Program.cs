@@ -207,6 +207,7 @@ namespace CustomerProductTests
             CustomerList list = new CustomerList();
             Customer c1 = new Customer(1, "Travis", "Burns", "travisjb0@example.com", "123-456-7890");
             Customer c2 = new Customer(2, "Dan", "Thomas", "Dt@gmail.com", "987-654-3210");
+
             list.Add(c1);
             list += c2;
             list.Save();
