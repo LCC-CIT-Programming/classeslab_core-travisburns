@@ -12,7 +12,6 @@ A card must also be able to compare itself to another card and report each of th
 
 
 
-
 using System;
 
 namespace CardClasses
@@ -21,19 +20,17 @@ namespace CardClasses
     {
         private static string[] values = { "", "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "Ten", "Jack", "Queen", "King" };
         private static string[] suits = { "", "Clubs", "Diamonds", "Hearts", "Spades" };
-        private static Random generator = new Random(); 
+        private static Random generator = new Random();
 
         private int value;
         private int suit;
 
         public Card()
         {
-           
         }
 
         public Card(int value, int suit)
         {
-
             if (value < 1 || value > 13 || suit < 1 || suit > 4)
                 throw new ArgumentException("Invalid card value or suit.");
 
@@ -44,32 +41,31 @@ namespace CardClasses
         public int Value
         {
             get { return value; }
-            set { this.value = value; } 
+            set
+            {
+                if (value < 1 || value > 13)
+                    throw new ArgumentException("Invalid card value.");
+                this.value = value;
+            }
         }
 
         public bool HasMatchingSuit(Card other)
         {
-            if (this.suit == other.suit)
-                return true;
-            else
-                return false;
+            return this.suit == other.suit;
         }
 
         public override string ToString()
         {
-            return values[value] + " of " + suits[suit]; 
+            return values[value] + " of " + suits[suit];
         }
 
-       
         public int Suit
         {
             get { return suit; }
             set
             {
-           
                 if (suit < 1 || suit > 4)
                     throw new ArgumentException("Invalid card suit.");
-
                 this.suit = suit;
             }
         }
@@ -79,14 +75,19 @@ namespace CardClasses
             return this.value == other.value;
         }
 
+        public bool IsFaceCard()
+        {
+            return value >= 11 && value <= 13;
+        }
+
         public bool IsRed
         {
-            get { return suit == 2 || suit == 3; } 
+            get { return suit == 2 || suit == 3; }
         }
 
         public bool IsBlack
         {
-            get { return suit == 1 || suit == 4; } 
+            get { return suit == 1 || suit == 4; }
         }
 
         public bool IsClub
@@ -113,11 +114,5 @@ namespace CardClasses
         {
             get { return value == 1; }
         }
-
-        public bool IsFaceCard
-        {
-            get { return value >= 11 && value <= 13; }
-        }
     }
 }
-

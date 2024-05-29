@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using System.Xml;
-
 namespace CustomerProductClasses
 {
+    // Nothing in this class has changed
     public class ProductList
     {
-         
         private List<Product> products;
 
         public ProductList()
@@ -113,4 +111,3 @@ namespace CustomerProductClasses
         }
     }
 }
-

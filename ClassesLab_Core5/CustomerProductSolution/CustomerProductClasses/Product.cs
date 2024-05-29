@@ -1,8 +1,25 @@
-﻿using System;
+﻿using System.Text;
+using System.Threading.Tasks;
+
+using System.Xml.Serialization;
+
+
+
+
 
 namespace CustomerProductClasses
 {
+    // I added this for xml serialization.  Nothing else in this class has changed.
+    [XmlType("Product")] // define Type
+    [XmlInclude(typeof(Clothing)), XmlInclude(typeof(Gear))]
+
+
+
+
     public class Product
+    
+    
+    
     {
         private int id;
         private string code;
@@ -83,7 +100,7 @@ namespace CustomerProductClasses
 
         public override string ToString()
         {
-            return String.Format("Id: {0} Code: {1} Description: {2} UnitPrice: {3:C} Quantity: {4}", id, code, description, unitPrice, quantity);
+            return string.Format("Id: {0} Code: {1} Description: {2} UnitPrice: {3:C} Quantity: {4}", id, code, description, unitPrice, quantity);
         }
 
         public override bool Equals(object obj)
