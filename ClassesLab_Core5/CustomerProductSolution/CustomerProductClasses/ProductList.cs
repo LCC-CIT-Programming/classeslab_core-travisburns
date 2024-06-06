@@ -1,14 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CustomerProductClasses
 {
     // Nothing in this class has changed
-    public class ProductList
+    public class ProductList : IEnumerable<Product>
     {
+        // polymorphism - can contain product, clothing or gear objects
         private List<Product> products;
 
         public ProductList()
@@ -34,17 +34,18 @@ namespace CustomerProductClasses
             ProductDB.SaveProducts(products);
         }
 
+        public void Sort()
+        {
+            products.Sort();
+        }
+
+        // polymorphism.  Can pass a product, clothing or gear object
         public void Add(Product product)
         {
             products.Add(product);
         }
 
-        public void Add(int id, string code, string description, decimal price, int quantity)
-        {
-            Product p = new Product(id, code, description, price, quantity);
-            products.Add(p);
-        }
-
+        // polymorphism.  Can pass a product, clothing or gear object
         public void Remove(Product product)
         {
             products.Remove(product);
@@ -53,13 +54,16 @@ namespace CustomerProductClasses
         public override string ToString()
         {
             string output = "";
+            // polymorphism.  Can be a product, clothing or gear object
             foreach (Product p in products)
             {
+                // calls the correct version of ToString depending on the kind of object
                 output += p.ToString() + "\n";
             }
             return output;
         }
 
+        // polymorphism.  Can return a product, clothing or gear object
         public Product this[int i]
         {
             get
@@ -108,6 +112,29 @@ namespace CustomerProductClasses
             for (int i = 1; i <= count; i++)
                 pl.products.RemoveAt(0);
             return pl;
+        }
+
+        // this is a new property.  It illustrates the use of the abstract property ShippingCharge
+        public decimal ShippingCharge
+        {
+            get
+            {
+                decimal total = 0;
+                foreach (Product p in products)
+                    // this won't work unless ALL classes implement shippingcharge
+                    total += p.ShippingCharge;
+                return total;
+            }
+        }
+
+        public IEnumerator<Product> GetEnumerator()
+        {
+            return ((IEnumerable<Product>)products).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable<Product>)products).GetEnumerator();
         }
     }
 }

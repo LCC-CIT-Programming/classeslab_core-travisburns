@@ -103,13 +103,23 @@ namespace CustomerProductClasses
             }
         }
 
+        // here's the implementation of the abstract property getter.  Notice that the heading has to match exactly.
+        // if you comment this property out, the code will not compile
+        public override decimal ShippingCharge
+        {
+            get
+            {
+                return 1M;
+            }
+        }
+
         // Replace ToString in Product with this clothing specific version of ToString
         public override string ToString()
         {
             // BUT don't redo all of the work that's done in the Product class.  Just call the Product version
             // and concatenate the new stuff.
             return base.ToString() +
-                   string.Format("\nCategory: {0} Gender: {1} Size: {2} Color: {3} Brand: {4}", category, gender, size, color, brand);
+                   String.Format("\nCategory: {0} Gender: {1} Size: {2} Color: {3} Brand: {4}", category, gender, size, color, brand);
         }
 
         // Replace version in Product with clothing specific version
@@ -140,5 +150,7 @@ namespace CustomerProductClasses
                 7 * color.GetHashCode() +
                 7 * brand.GetHashCode();
         }
+
+       
     }
 }
