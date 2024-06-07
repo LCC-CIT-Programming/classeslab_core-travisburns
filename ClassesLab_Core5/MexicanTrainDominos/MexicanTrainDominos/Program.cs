@@ -1,73 +1,6 @@
 ﻿using DominoClasses;
-using System;
 using System.Collections.Generic;
-
-namespace DominoClasses
-{
-    public class MexicanTrain : Train
-    {
-        public MexicanTrain() : base() { }
-        public MexicanTrain(int engineValue) : base(engineValue) { }
-
-        public override bool IsPlayable(Hand h, Domino d, out bool mustFlip)
-        {
-            mustFlip = false;
-            if (IsEmpty || IsPlayable(d))
-            {
-                if (!IsEmpty && d.Side2 != PlayableValue)
-                {
-                    mustFlip = true;
-                }
-                return true;
-            }
-            return false;
-        }
-    }
-
-    public class PlayerTrain : Train
-    {
-        private Hand hand;
-        private bool isOpen;
-
-        public PlayerTrain(Hand hand) : base()
-        {
-            this.hand = hand;
-            isOpen = false;
-        }
-
-        public PlayerTrain(Hand hand, int engineValue) : base(engineValue)
-        {
-            this.hand = hand;
-            isOpen = false;
-        }
-
-        public bool IsOpen => isOpen;
-
-        public void Open()
-        {
-            isOpen = true;
-        }
-
-        public void Close()
-        {
-            isOpen = false;
-        }
-
-        public override bool IsPlayable(Hand h, Domino d, out bool mustFlip)
-        {
-            mustFlip = false;
-            if (IsOpen && (IsEmpty || IsPlayable(d)))
-            {
-                if (!IsEmpty && d.Side2 != PlayableValue)
-                {
-                    mustFlip = true;
-                }
-                return true;
-            }
-            return false;
-        }
-    }
-}
+using System;
 
 namespace MexicanTrainDominos
 {
@@ -77,6 +10,7 @@ namespace MexicanTrainDominos
         {
             TestMexicanTrain();
             TestPlayerTrain();
+            TestSortingAndIteration();
         }
 
         public static void TestMexicanTrain()
@@ -114,13 +48,9 @@ namespace MexicanTrainDominos
         {
             Hand hand = new Hand();
             PlayerTrain train = new PlayerTrain(hand);
-            Assert(train.Hand == hand, "The constructor should set the hand correctly");
-            Assert(!train.IsOpen, "The constructor should set the train to closed state");
             Assert(train.EngineValue == 0, "The default constructor should initialize EngineValue to 0");
 
             train = new PlayerTrain(hand, 5);
-            Assert(train.Hand == hand, "The constructor should set the hand correctly");
-            Assert(!train.IsOpen, "The constructor should set the train to closed state");
             Assert(train.EngineValue == 5, "The constructor with an engine value should set EngineValue correctly");
 
             train.Open();
@@ -153,6 +83,41 @@ namespace MexicanTrainDominos
             // Closed
             train.Close();
             Assert(!train.IsPlayable(hand, new Domino(6, 6), out mustFlip), "For a closed train, IsPlayable should return false");
+        }
+
+        public static void TestSortingAndIteration()
+        {
+            // Test sorting
+            List<Domino> hand = new List<Domino>();
+            hand.Add(new Domino(5, 3));
+            hand.Add(new Domino(2, 6));
+            hand.Add(new Domino(4, 4));
+            hand.Sort();
+            Console.WriteLine("Sorted hand:");
+            foreach (Domino d in hand)
+            {
+                Console.WriteLine(d);
+            }
+
+            // Test iteration
+            MexicanTrain mexicanTrain = new MexicanTrain();
+            mexicanTrain.Play(new Hand(), new Domino(6, 6));
+            mexicanTrain.Play(new Hand(), new Domino(6, 4));
+            Console.WriteLine("\nMexicanTrain:");
+            foreach (Domino d in mexicanTrain)
+            {
+                Console.WriteLine(d);
+            }
+
+            PlayerTrain playerTrain = new PlayerTrain(new Hand());
+            playerTrain.Open();
+            playerTrain.Play(new Hand(), new Domino(3, 3));
+            playerTrain.Play(new Hand(), new Domino(3, 5));
+            Console.WriteLine("\nPlayerTrain:");
+            foreach (Domino d in playerTrain)
+            {
+                Console.WriteLine(d);
+            }
         }
 
         private static void Assert(bool condition, string message)

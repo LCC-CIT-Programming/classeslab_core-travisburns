@@ -1,6 +1,8 @@
 ﻿using DominoClasses;
+using System.Collections;
+using System.Collections.Generic;
 
-public class PlayerTrain : Train
+public class PlayerTrain : Train, IEnumerable<Domino>
 {
     private bool isOpen;
     public Hand hand;
@@ -43,5 +45,18 @@ public class PlayerTrain : Train
             return true;
         }
         return false;
+
     }
+
+    public IEnumerator<Domino> GetEnumerator()
+    {
+        return dominos.GetEnumerator();
+    }
+
+    System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
+
+
 }
